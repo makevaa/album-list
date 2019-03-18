@@ -1,83 +1,101 @@
-for(var i = 0; i < itemCount; i++) { // Create empty html elements for each track in the list
-	$("#albumList").append('<div class="item"><div class="smallOverlay"></div><img class="image"><div class="info"><div class="album"></div><div class="artist"></div></div></div>'); 
+var viewportW = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+var viewportH = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+var selectedAlbum = {};
+
+
+for (var i = 0; i < albumList.length; i++) { 
+	$("#albumList").append('<div class="item"><div class="smallOverlay"></div><img class="image"><div class="info"><div class="album"></div><div class="artist"></div></div></div>'); 	
+	albumList[i].image = "http://chazu.arkku.net/misc/musicList/pics/powermetal/" + albumList[i].image + ".jpg";
+	$('.artist').eq(i).text(albumList[i].artist); 
+	$('.album').eq(i).text(albumList[i].album); 			
+	$('.image').eq(i).attr('src', albumList[i].image);
 }  
 
-$('.item').each(function(i, obj) {
-	var curArtist = albumList[i].artist;
-	var curAlbum = albumList[i].album;
-	var curYear = albumList[i].year;
-	var curImage = albumList[i].image;
-	var curCountry = albumList[i].country;	
-
-	$('.artist').eq(i).text(curArtist); 
-	$('.album').eq(i).text(curAlbum); 	
-		
-	var fullImageSrc = "http://chazu.arkku.net/misc/musicList/pics/powermetal/" + curImage + ".jpg";
-	$(".image").eq(i).attr({ 'src':fullImageSrc});
-		
-	var curSearchQue = albumList[i].searchQue;
-	fullSearchQue = "https://www.youtube.com/results?search_query=" + curSearchQue;
-});
 
 
-var searchQue;
-var idArr = [];
-
-$('.item').click(function() { 
+$('#albumList').delegate('.item', 'click', function () {
 	var i = $(this).index();
-	var imgSrc = $('.image').eq(i).attr('src');
-	$('#bigAlbum').attr('src', imgSrc); 
+	selectedAlbum = albumList[i];
+	console.log(selectedAlbum);
 	
-	$('#albumName').text(albumList[i].album);
-	$('#artistName').text(albumList[i].artist);
-	$('#year').text(albumList[i].year);
-	searchQue = albumList[i].searchQue;
-		
+	$('#bigAlbum').attr('src', selectedAlbum.image); 
+	$('#albumName').text(selectedAlbum.album);
+	$('#artistName').text(selectedAlbum.artist);
+	$('#year').text(selectedAlbum.year);
+	
 	$('#trackList').empty();
 	
-	idArr.length = 0;
-	
-	var trackAm = albumList[i].trackAmount;
-	
-	for(var i2 = 0; i2 < trackAm; i2++) {
-		var trackName = albumList[i].trackList[i2].name;
-		var trackNum = i2 + 1;
-		var trackDur =  albumList[i].trackList[i2].dur;	
-		$("#trackList").append('<div class="trackListItem"><div class="smallPlayIcon"></div><span class="trackNum">'+trackNum+'. </span>'+'<span class="trackName">'+trackName+'</span>'+'<span class="trackDuration">'+trackDur+'</span></div>');		
-		idArr.push(albumList[i].trackList[i2].id);
-	}  
-	
+	for (let j = 0; j < selectedAlbum.trackList.length; j++) {
+		var trackName = selectedAlbum.trackList[j].name;
+		var trackNum = j + 1;
+		var trackDur =  selectedAlbum.trackList[j].dur;	
+		if (trackDur.length < 5) {
+			trackDur = "0"+trackDur;
+		}
+		$("#trackList").append('<div class="trackListItem"><div class="smallPlayIcon"></div><span class="trackNum">'+trackNum+'. </span>'+'<span class="trackName">'+trackName+'</span>'+'<span class="trackDuration">'+trackDur+'</span></div>');
+	}  	
 	
 	$('#playAlbumButton').css('visibility','visible');
 	$('#bigAlbum').css('visibility','visible');
-	$('#splitter').css('visibility','visible');
+	$('#splitterContainer').css('visibility','visible');
 	
+	$('#trackList').undelegate('.trackListItem', "click"); //remove previous click listeners 
 	
-	$('.trackListItem').click(function() { 
-		var indexTL = $(this).index();
-		
-		//reset the tracklist style for all items		
-		$('.trackListItem').removeClass("selectedTrack");
-		
-		console.log("trackListItem clicked.");
-		var artist = $('#artistName').text();
-		var track = $('.trackName').eq(indexTL).text();
-		
-		var result = artist + " " + track;	
-		result = result.replace(/\s/g, "+");  // Replace whitespace with "+"
-		var specRegex = /[.]|[,]|[(]|[)]|[']/g; // The symbols inside the [] brackets are matched
-		result = result.replace(specRegex, "+"); // and replaced with "+"
-		
-		if (result.substring(result.length-1) == "+") { // If last symbol ends up being "+", remove it
-			result = result.substring(0, result.length-1);
-		}	
-		
-		var result = "https://www.youtube.com/results?search_query=" + result;
-		window.open(result,'_blank');
+	$('#trackList').delegate('.trackListItem', "click", function () {			
+		var trackIndex = $('.trackListItem').index(this);
+
+		var query = selectedAlbum.artist + " " + selectedAlbum.trackList[trackIndex].name;	
+		query = query.replace(/[\s]|[.]|[,]|[(]|[)]|[']/g, "+"); //replace charcaters ans whitespaces with +		
+		query = "https://www.youtube.com/results?search_query=" + query;
+		window.open(query, '_blank');
 	});
+	
+	checkSmallView();
 });
 
 
 $('#bigAlbum, #playAlbumButton, #bigOverlay').click(function() { 
-	window.open(searchQue,'_blank');
+	if (selectedAlbum.hasOwnProperty("searchQuery")) {
+		window.open(selectedAlbum.searchQuery, '_blank');
+	}	
 });
+
+var checkSmallView = function() {
+	var x = $(this).width(), 
+		y = $(this).height();
+			
+		
+		if (!($('#trackList').is(':empty'))){
+			
+			$('.trackName', $('#trackList')).each(function (i) {
+				var name = selectedAlbum.trackList[i].name;
+				if (x < 800) {
+					if (name.length > 20) {
+						var shortname = name.substring(0, 20) + " ...";
+						$(this).text(shortname);
+					}				
+				} else {
+					$(this).text(name);
+				}
+			});	
+			
+		}
+		
+}
+
+$(window).on('resize', function(e) {
+	checkSmallView();
+});
+
+if (viewportW < 800) {
+	checkSmallView();
+}
+
+
+
+
+
+
+
+

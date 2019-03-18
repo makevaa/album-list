@@ -5,7 +5,8 @@ body {
 	font-family: 'Montserrat', sans-serif;
 	color: #DCEBDD; 
 	background-size:contain;
-	}
+}
+
 #albumViewer{
 	xborder: 1px solid grey;
 	border-right: 1px solid grey;
@@ -15,7 +16,8 @@ body {
 	padding:20px;
 	position:fixed;
 	overflow-y:auto;
-	}
+	transition: width 0.1s;
+}
 	
 #albumList{
 	xborder: 1px solid grey;
@@ -24,7 +26,9 @@ body {
 	height: 90%;
 	float:right;
 	padding:20px;
-	}
+	transition: width 0.1s;
+}
+
 .item{
 	xborder: 1px solid grey;
 	width: 150px;
@@ -32,15 +36,17 @@ body {
 	margin-right: 20px;
 	margin-bottom: 70px;
 	float:left;	
-	}
+}
+
 .item:hover > .smallOverlay{
 	transition: opacity 0.05s ease-in;
 	opacity: 1.0;
-	}	
+}	
 	
 .item:active > .smallOverlay{	
 	background-color: rgba(0,0,0,0.7);
 }
+
 .smallOverlay{
 	position:absolute;
 	width: 150px;
@@ -49,7 +55,7 @@ body {
 	background-color: rgba(0,0,0,0.5);
 	opacity:0.0;
 	transition: opacity 0.10s ease-out;
-	}
+}
 	
 .image{
 	z-index: -1;
@@ -61,65 +67,71 @@ body {
 	-webkit-box-shadow: 0px 0px 20px 3px rgba(0,0,0,0.55);
 	-moz-box-shadow: 0px 0px 20px 3px rgba(0,0,0,0.55);
 	box-shadow: 0px 0px 20px 3px rgba(0,0,0,0.55);
-	}	
+}	
+	
 .info {
-	xborder: 1px solid red;
 	xposition: absolute;
 	color: #DCEBDD ;
 	bottom: 0;
 	padding: 5px;
 	xbackground-color: rgba(0,0,0,0.5);
 	text-align:center;
-	}
+}
+
 .album{
 	font-weight: 400;
 	font-size: 14px;
 	xtext-shadow: 2px 2px 1px rgba(0, 0, 0, 1);
 	margin-bottom:5px;
-	}	
+}	
+
 .artist{
 	font-weight: 300;
 	font-size: 12px;
 	xtext-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
-	}
+}
 
 #bigAlbumCon	{
-	width: 	200px;
-	height: 200px;
-	position:absolute;
-	
-}
-#bigAlbum{
-	width: 	200px;
-	height: 200px;
-	xborder: 1px solid black;
+	max-width: 	200px;
+	max-height: 200px;
 	float:left;
-	margin-right:10px;
 	margin-bottom:10px;
+	margin-right:20px;
+	position: relative;
+}
+
+#bigAlbum{
+	width: 100%;
+	height: 100%;
+	xborder: 1px solid black;
+	
+	xmargin-right:10px;
+	
 	-webkit-box-shadow: 0px 0px 28px 3px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 28px 3px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 28px 3px rgba(0,0,0,0.75);
 	z-index: -1;
 	visibility:hidden;
-	}
+}
 
 #bigOverlay{
 	position:absolute;
-	width: 200px;
-	height: 200px; 
+	width: 100%;
+	height: 100%;
 	z-index: 0;
 	background-color: rgba(0,0,0,0.5);
 	opacity:0.0;
 	transition: opacity 0.10s ease-out;
-	}	
+}	
+	
 #bigOverlay:hover{
 	transition: opacity 0.05s ease-in;
 	opacity: 1.0;
-	}	
+}	
 
 #bigOverlay:active > #bigPlayIcon{
 	opacity: 0.5;
-	}	
+}	
 	
 #bigOverlay:active{	
 	background-color: rgba(0,0,0,0.7);
@@ -129,89 +141,85 @@ body {
 	position:absolute;
 	margin-left:auto;
 	margin-right:auto;
-	width: 200px;
-	height: 200px; 
+	width: 100%;
+	height: 100%;
 	border:none;
 	opacity:0.8;
 	z-index:5;
 	transition: opacity 0.10s ease-out;
-	}
+	cursor: pointer;
+}
 
 /*#bigAlbum:hover #bigPlayIcon{opacity:0.7;}	*/
 
 #infoBox{
-	xborder:1px solid red;
 	xfloat:left;
 	xdisplay: flex;
 	xflex-direction: column;
-	margin-left:215px;
-	}	
+	
+}	
 	
 #albumName{	
-	xborder:1px solid grey;
-	xdisplay:inline-block;
 	padding:5px;
 	xmargin-bottom:5px;
-	xfloat:left;
 	font-weight:bold;
 	font-size: 23px;
 	min-height:68px;
-	}
+}
 
 #artistName{
-	xborder:1px solid grey;
 	padding-left:5px;
 	font-weight:400;
-	xmargin-bottom:3px;
-	xmargin-top: 0px;
-	}
+	transition: font-size 0.1s;
+}
 	
 #year{
-	xborder:1px solid grey;
 	padding-left:5px;
 	margin-bottom:5px;
 	font-size:13px;
 	font-weight:400;
 	opacity:0.7;
-	}	
+}	
 	
 #trackList{
-	xborder:1px solid grey;
 	clear:both;
 	padding:5px;
 	font-size:15px;
 	font-weight:300;
-	xmargin-top: 100px;
-	}
+	user-select: none;
+}
 	
 .trackListItem{
-	xborder:1px solid grey;
 	padding:4px;
 	transition: background-color 0.15s ease-out;
-	cursor: default;
-	}	
+	cursor: pointer;
+}	
+
 .trackListItem:hover{
 	transition: background-color 0.05s ease-in;
 	background-color:rgba(0,0,0,0.3);
-	}		
+}		
 	
 .selectedTrack{	
 	background-color:rgba(0,0,0,0.2);
 	color:#00cc66;
-	}
+}
+
 .selectedTrack:active{		
 	background-color:rgba(0,0,0,0.5);
-	}
+}
 
 .trackNum{
 	position:absolute;
-	xopacity:1.0;
 	font-weight:200;
-	}
+}
 	
 .trackName {
-	margin-left:25px;
-	}		
+	display:inline-block;
+	margin-left:25px;	
+	overflow-x: hidden;
+}	
+	
 .trackListItem:hover > .trackNum { opacity: 0.0; }	
 .trackListItem:hover > .smallPlayIcon { opacity: 1.0; }
 
@@ -222,12 +230,14 @@ body {
 	
 .invis{
 	opacity:0.0;
-	}
+}
 	
 .trackDuration{
 	float:right;
 	font-weight:200;
-	}	
+	font-size: 18px;
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+}	
 	
 .smallPlayIcon{
 	position:absolute;
@@ -237,12 +247,8 @@ body {
 	background-image: url(pics/play-small-52px-bright.png);
 	background-repeat: no-repeat; 
 	background-size:contain;
-	xborder:1px solid red;
-	xleft:0;
-	xvisibility:hidden;
-	xtransition: background-color 0.5s ease-in;
 	opacity:0.0;
-	}	
+}	
 	
 #playAlbumButton{
 	font-family: 'Montserrat', sans-serif;
@@ -262,28 +268,72 @@ body {
 	visibility:hidden;
 	transition: background-color 0.15s ease-out;
 	transition: width 0.15s ease-out;
-	}
+	cursor: pointer;
+}
 
 #playAlbumButton:hover{
 	background: #18e780;
 	text-decoration: none;
 	width:110px;
-	xheight:50px;
 	font-weight:bold;
-	}
+}
+
 #playAlbumButton:active{
 	background: #008040;
-	}	
+}	
 	
 button:focus {outline:0;}
 
-#splitter{
-	xposition:absolute;
+#splitterContainer {
 	visibility:hidden;
 	color: white;
 	opacity:0.25;
-	margin-top: 65px;
+}
+
+
+@media (max-width: 850px){
+	
+	#albumViewer {
+		width: 50%;
 	}
+	
+	#albumList {
+		width: 50%;
+	}
+	.trackDuration {
+		display:none;
+	}
+	
+	.trackName {
+		max-width: 25ch;
+	}
+	
+	#bigAlbumCon {
+		float:none;
+	}
+	
+	#infoBox {
+		margin-left:0px;
+	}
+	
+	#albumName {
+		font-size:18px;
+		display:block;
+	}
+	
+	#artistName {
+		font-size:15px;
+	}
+	
+	.trackNum {
+		font-size:13px;
+	}
+	
+	.trackName {
+		font-size:13px;
+	}
+	
+}
 	
 	
 	
@@ -297,14 +347,12 @@ button:focus {outline:0;}
 	left:0;
 	position:fixed;
 	z-index:10;
-	
-	
-	}
+}
 /* player jutut END */
 
 *, *:before, *:after {
 	-webkit-box-sizing: border-box; 
 	-moz-box-sizing: border-box; 
 	box-sizing: border-box;
-	}
+}
 	

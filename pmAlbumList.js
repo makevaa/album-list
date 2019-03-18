@@ -1,3 +1,4 @@
+
 var albumList = [
 	{
 		artist: "Sonata Arctica",
@@ -331,25 +332,7 @@ var albumList = [
 			},{ name:"Pilgrim of Love",dur:"5:01"	
 			},{ name:"Wake Up the World 2.0",dur:"5:27"	}			
 		]
-	},{		/*
-		artist: "ARTIST",
-		album: "ALBUM",
-		year: "2001",
-		image: "image",
-		trackList: [
-			{	name:"TRACK",dur:"DURATION"
-			},{ name:"TRACK",dur:"DURATION"
-			},{ name:"TRACK",dur:"DURATION"
-			},{ name:"TRACK",dur:"DURATION"
-			},{ name:"TRACK",dur:"DURATION"
-			},{ name:"TRACK",dur:"DURATION"
-			},{ name:"TRACK",dur:"DURATION"
-			},{ name:"TRACK",dur:"DURATION"
-			},{ name:"TRACK",dur:"DURATION"
-			},{ name:"TRACK",dur:"DURATION"
-			},{ name:"TRACK",dur:"DURATION"	}				
-		]
-	},{	*/
+	},{	
 		artist: "Sonata Arctica",
 		album: "Silence",
 		year: "2001",
@@ -370,7 +353,7 @@ var albumList = [
 			},{ name:"The Power of One"	,dur:"11:33",id:"N0fPuYR3I_kn"}
 		]
 	}	
-];
+]
 
 
 function sortByAttribute(array, ...attrs) {
@@ -405,101 +388,15 @@ function sortByAttribute(array, ...attrs) {
 
 albumList = sortByAttribute(albumList, 'artist', 'album')//this is perfect; sort list by artist, then by album name
 	
-	
-function objectLength(obj) {//count the amount of items in the parameter:
-	var result = 0;
-	for(var prop in obj) {
-		if (obj.hasOwnProperty(prop)) {
-		result++;
-		}
-	}
-	return result;
-}
-
-var itemCount = objectLength(albumList); // count the amount of albums in the list
-
-/* countryAdd takes in the current iteration's index and the country as a parameter. A new "country" property is added with the parameter as its value. The for loop provides switch statement to decide which artist has which country. */
-function countryAdd(i, myParam){
-	albumList[i].country = myParam;
-}
-
-for(var i = 0; i < itemCount; i++){ 
-	var curArtist = albumList[i].artist;
-	switch (curArtist) {
-		case "Angra": 				countryAdd(i, "Brazil");		break;
-		case "Astralion": 			countryAdd(i, "Finland");		break;
-		case "Battle Beast":		countryAdd(i, "Finland");		break;
-		case "Blind Guardian":		countryAdd(i, "Germany");		break;
-		case "Book Of Reflections":	countryAdd(i, "Sweden");		break;	
-		case "Brothers of Metal":	countryAdd(i, "Sweden");		break;			
-		case "Celesty":				countryAdd(i, "Finland");		break;
-		case "Children Of Bodom":	countryAdd(i, "Finland");		break;
-		case "Cryonic Temple":		countryAdd(i, "Sweden");		break;
-		case "Dragonforce":			countryAdd(i, "United Kingdom");break;
-		case "Dreamtale":			countryAdd(i, "Finland");		break;
-		case "Equilibrium":			countryAdd(i, "Germany");		break;
-		case "Falconer":			countryAdd(i, "Sweden");		break;
-		case "Forgotten Tales":		countryAdd(i, "Canada");		break;
-		case "Force Majeure":		countryAdd(i, "Finland");		break;
-		case "Freedom Call":		countryAdd(i, "Germany");		break;
-		case "Gamma Ray":			countryAdd(i, "Germany");		break;
-		case "Gloryhammer":			countryAdd(i, "United Kingdom");break;
-		case "Hammerfall":			countryAdd(i, "Sweden");		break;
-		case "Heavy Metal Perse":	countryAdd(i, "Finland");		break;
-		case "Heimdall":			countryAdd(i, "Germany");		break;
-		case "Helloween":			countryAdd(i, "Germany");		break;
-		case "Iron Fire":			countryAdd(i, "Denmark");		break;
-		case "Iron Savior":			countryAdd(i, "Germany");		break;
-		case "Lost Horizon":		countryAdd(i, "Sweden");		break;
-		case "Luca Turilli":		countryAdd(i, "Italy");			break;
-		case "Keldian":				countryAdd(i, "Norway");		break;
-		case "Manowar":				countryAdd(i, "United States");	break;
-		case "Masterplan":			countryAdd(i, "Germany");		break;
-		case "Metsatöll":			countryAdd(i, "Estonia");		break;
-		case "Pathfinder":			countryAdd(i, "Poland");		break;
-		case "Power Quest":			countryAdd(i, "United Kingdom");break;
-		case "Project Aegis":		countryAdd(i, "United States"); break;
-		case "Rhapsody":			countryAdd(i, "Italy");			break;
-		case "Rhapsody of Fire":	countryAdd(i, "Italy");			break;
-		case "Sabaton":				countryAdd(i, "Sweden");		break;
-		case "Savatage":			countryAdd(i, "United States");	break;
-		case "Scelerata":			countryAdd(i, "Brazil");		break;
-		case "Sigma":				countryAdd(i, "Italy");			break;
-		case "Sonata Arctica":		countryAdd(i, "Finland");		break;
-		case "Stratovarius":		countryAdd(i, "Finland");		break;
-		case "Theocracy":			countryAdd(i, "United States");	break;
-		case "Twilightning":		countryAdd(i, "Finland");		break;
-		case "Twilight Force":		countryAdd(i, "Sweden");		break;
-		case "Virgin Steele":		countryAdd(i, "United States");	break;
-		case "Wisdom":				countryAdd(i, "Hungary");		break;		
-	}
-}
-
-// create a searchQue property automatically out of artist and album name
-for(var i = 0; i < itemCount; i++){
-	var curArtist = albumList[i].artist;
-	var curAlbum = albumList[i].album;
-	var result = curArtist + "+" + curAlbum + "+full album";
-	
-	result = result.replace(/\s/g, "+");  /* Replace whitespace with "+" */	
-	var specRegex = /[.]|[,]|[(]|[)]|[']/g; /*The symbols inside the [] brackets are matched*/
-	result = result.replace(specRegex, "+"); /* and replaced with "+" */
-	
-	if (result.substring(result.length-1) == "+") { /* If last symbol ends up being "+", remove it */
-		result = result.substring(0, result.length-1);
-	}	
+// create a searchQuery property automatically out of artist and album name
+for(var i = 0; i < albumList.length; i++){
+	var result = albumList[i].artist + "+" + albumList[i].album + "+full album";
+	result = result.replace(/\s/g, "+");  // Replace whitespace with "+" 
+	//var specRegex = ; //The symbols inside the [] brackets are matched
+	result = result.replace(/[.]|[,]|[(]|[)]|[']/g, "+"); // and replaced with "+" 
 	result = "https://www.youtube.com/results?search_query=" + result;
-	albumList[i].searchQue = result;
+	albumList[i].searchQuery = result;
 }	
 
-// count the number of tracks in album trackList and add a trackAmount property to the album object 
-for(var i = 0; i < itemCount; i++){
-	var count = 0;
-	for (var track in albumList[i].trackList) {
-		if (albumList[i].trackList.hasOwnProperty(track)) {
-			count++;
-		}
-	}
-	albumList[i].trackAmount = count;
-}
+
 
